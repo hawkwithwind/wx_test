@@ -1,0 +1,26 @@
+{
+    "development":{
+	"localPort": 8081,
+	"mysql":{
+	    "host": "127.0.0.1",
+	    "port": 3306,
+	    "user": "",
+	    "password": "",
+	    "database": "wx"
+	}
+    },
+    "production":{
+	"localPort": 80
+    },
+    "test":{
+	"localPort": 8082,
+	"mysql":{
+	    "host": "127.0.0.1",
+	    "port": 3306,
+	    "user": "",
+	    "password": "",
+	    "database": "wx"
+	}
+
+    }
+}
