@@ -1,5 +1,4 @@
-# local config file, not suppose to be published
-config.json
+migrations
 
 # Logs
 logs

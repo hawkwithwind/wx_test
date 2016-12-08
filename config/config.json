@@ -1,0 +1,11 @@
+{
+    "development":{
+	"localPort": 8081
+    },
+    "production":{
+	"localPort": 80
+    },
+    "test":{
+	"localPort": 8082
+    }
+}
