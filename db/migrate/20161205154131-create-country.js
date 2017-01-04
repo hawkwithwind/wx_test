@@ -2,11 +2,16 @@
 module.exports = {
   up: function(queryInterface, Sequelize) {
     return queryInterface.createTable('Countries', {
+      id: {
+	primaryKey: true,
+	type: Sequelize.UUID,
+	allowNull: false
+      },
       name: {
         type: Sequelize.STRING
       },
       code: {
-	primaryKey: true,
+	unique: true,
 	allowNull: false,
         type: Sequelize.STRING(36)
       },

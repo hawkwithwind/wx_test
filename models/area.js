@@ -15,9 +15,9 @@ module.exports = function(sequelize, DataTypes) {
     classMethods: {
       associate: function(models) {
         Area.belongsTo(models.Area, {as: 'Parent', foreignKey: 'parentId'});
-	Area.belongsTo(models.AreaLevel, {foreignKey: 'areaLevelId'});
-	Area.belongsTo(models.Country, {foreignKey: 'countryCode'});
-	Area.hasMany(models.Address, {foreignKey: 'areaId'});
+	Area.belongsTo(models.AreaLevel);
+	Area.belongsTo(models.Country);
+	Area.hasMany(models.Address);
       }
     },
     paranoid: true

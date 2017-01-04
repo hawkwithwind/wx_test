@@ -16,14 +16,16 @@ module.exports = {
 	references: {
 	  model: 'AreaLevels',
 	  key: 'id'
-	}
+	},
+	onUpdate: 'cascade',
+	onDelete: 'cascade'
       },
-      countryCode: {
+      countryId: {
 	allowNull: false,
-	type: Sequelize.STRING(36),
+	type: Sequelize.UUID,
 	references: {
 	  model: 'Countries',
-	  key: 'code'
+	  key: 'id'
 	},
 	onUpdate: 'cascade',
 	onDelete: 'cascade'

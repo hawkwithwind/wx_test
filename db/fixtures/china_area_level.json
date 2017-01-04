@@ -1,0 +1,33 @@
+[
+  {
+    "model":"Country",
+    "data": {
+      "name": "中国",
+      "code": "CN"
+    }
+  },
+  {
+    "model":"AreaLevel",
+    "data": {
+      "name": "省",
+      "parent": null,
+      "country": {"code":"CN"}
+    }
+  },
+  {
+    "model":"AreaLevel",
+    "data": {
+      "name": "市",
+      "parent": null, 
+      "country": {"code":"CN"}
+    }
+  },
+  {
+    "model":"AreaLevel",
+    "data": {
+      "name": "区",
+      "parent": null, 
+      "country": {"code": "CN"}
+    }
+  }
+]

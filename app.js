@@ -1,82 +1,41 @@
-var express = require("express");
+var express = require('express');
+var path = require('path');
+var logger = require('morgan');
+var cookieParser = require('cookie-parser');
+var bodyParser = require('body-parser');
+
+var routes = require('./routes/index');
+var utils = require('./routes/util');
+
 var app = express();
+
+// view engine setup
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'jade');
+
+app.use(logger('dev'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.use('/', routes);
+app.use('/utils', utils);
+
+// catch 404 and forward to error handler
+app.use(function(req, res, next) {
+  var err = new Error('Not Found');
+  err.status = 404;
+  next(err);
+});
+
+// error handler
+app.use(function(err, req, res, next) {
+  res.status(err.status || 500);
+  res.render('error', {
+    message: err.message,
+    error: (app.get('env') === 'development') ? err : {}
+  });
+});
+
 module.exports = app;
-
-var config = require('./config/config.json')[app.get('env')];
-
-//var mysql = require('mysql');
-//var dbconn = mysql.createConnection(config.mysql);
-
-var Sequelize = require('sequelize')
-, sequelize = new Sequelize('wx', 'root', 'bywindifly', {
-  dialect: 'mysql',
-  port: 3306
-});
-
-Account = require('./models/account')(sequelize, Sequelize);
-User = require('./models/user')(sequelize, Sequelize);
-
-function censor(censor) {
-  var i = 0;
-  
-  return function(key, value) {
-    if(i !== 0 && typeof(censor) === 'object' && typeof(value) == 'object' && censor == value) 
-      return '[Circular]'; 
-    
-    if(i >= 29) // seems to be a harded maximum of 30 serialized objects?
-      return '[Unknown]';
-    
-    ++i; // so we know we aren't using the original object anymore
-    
-    return value;  
-  }
-}
-
-function str(o) {
-  return JSON.stringify(o, censor(o));
-}
-
-app.get('/echo', function(req, resp) {
-  dbconn.connect(function(err){});
-  var query = dbconn.query('SELECT * FROM user');
-  console.log(query.sql);
-  
-  resp_o = {
-    headers:req.headers,
-    protocol:req.protocol,
-    query:req.query,
-    baseUrl:req.baseUrl,
-    originalUrl:req.originalUrl,
-    method:req.method
-  }
-  resp.send(str(resp_o));
-  //console.log(str(req));
-})
-
-var server = app.listen(config.localPort, function() {
-  var host = server.address().address
-  var port = server.address().port
-  
-  console.log("example app listening at http://%s:%s", host, port)
-  
-  sequelize.authenticate()
-    .then(function(err) {
-      console.log("connected to db");
-    })
-    .then(function(err) {
-      var account001 = Account.create({name:"account001"});
-      return account001;
-    })
-    .then(function(account001){
-      console.log(str(account001));
-      var user001 = User.create({name:"testUser001", "accountId": account001.id});
-      return user001;
-    })
-    .then(function(user001){
-      console.log("user: ", str(user001));
-    })
-    .catch(function(err){
-      console.log("db err:", err)
-    });
-});
-

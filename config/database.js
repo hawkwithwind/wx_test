@@ -5,7 +5,7 @@ module.exports = {
     "database": "wx",
     "host": "127.0.0.1",
     "dialect": "mysql",
-    "logging": false,
+    "logging": console.log,
     "charset": "utf8mb4",
     "dialectOptions":{
       "collate": "utf8mb4_unicode_ci"
@@ -17,7 +17,7 @@ module.exports = {
     "database": "wx_test",
     "host": "127.0.0.1",
     "dialect": "mysql",
-    "logging": true,
+    "logging": console.log,
     "charset": "utf8mb4",
     "dialectOptions":{
       "collate": "utf8mb4_unicode_ci"

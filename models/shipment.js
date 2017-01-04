@@ -7,7 +7,7 @@ module.exports = function(sequelize, DataTypes) {
   }, {
     classMethods: {
       associate: function(models) {
-	Shipment.belongsTo(models.Order)
+	Shipment.belongsTo(models.Order);
         Shipment.hasMany(models.Logistics, {foreignKey: 'shipmentId'});	
       }
     }
